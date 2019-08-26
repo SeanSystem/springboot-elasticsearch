@@ -32,7 +32,7 @@ public class GoodsController {
 
     @GetMapping("/save")
     public String save(){
-        GoodsInfo goodsInfo = new GoodsInfo(System.currentTimeMillis(), "商品" + System.currentTimeMillis(), "这是一个测试商品");
+        GoodsInfo goodsInfo = new GoodsInfo(System.currentTimeMillis(), "商品" + System.currentTimeMillis(), "改革春风吹满地，中国人民真争气");
         return goodsService.save(goodsInfo);
     }
 
@@ -57,6 +57,11 @@ public class GoodsController {
     @GetMapping("/getOne")
     public GoodsInfo getOne(long id){
        return goodsService.getOne(id);
+    }
+
+    @GetMapping("/getAll")
+    public List<GoodsInfo> getAll(){
+        return goodsService.getAll();
     }
 
     private Integer PAGE_SIZE=10;

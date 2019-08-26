@@ -7,6 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.elasticsearch.core.query.SearchQuery;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,7 +27,7 @@ public class GoodsServiceImpl implements GoodsService {
     public String save(GoodsInfo goodsInfo) {
         try {
             goodsRepository.save(goodsInfo);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return "failed";
         }
@@ -35,7 +38,7 @@ public class GoodsServiceImpl implements GoodsService {
     public String delete(long id) {
         try {
             goodsRepository.deleteById(id);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return "failed";
         }
@@ -46,7 +49,7 @@ public class GoodsServiceImpl implements GoodsService {
     public String update(GoodsInfo goodsInfo) {
         try {
             goodsRepository.save(goodsInfo);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return "failed";
         }
@@ -58,10 +61,10 @@ public class GoodsServiceImpl implements GoodsService {
         try {
             Optional<GoodsInfo> optional = goodsRepository.findById(id);
             return optional.get();
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
-      return null;
+        return null;
     }
 
     @Override
@@ -69,7 +72,23 @@ public class GoodsServiceImpl implements GoodsService {
         try {
             Page<GoodsInfo> search = goodsRepository.search(searchQuery);
             return search.getContent();
-        }catch (Exception e){
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
+    public List<GoodsInfo> getAll() {
+        ArrayList<GoodsInfo> list = new ArrayList<>();
+        try {
+            Iterable<GoodsInfo> all = goodsRepository.findAll();
+            Iterator<GoodsInfo> iterator = all.iterator();
+            while (iterator.hasNext()) {
+                list.add(iterator.next());
+            }
+            return list;
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return null;
